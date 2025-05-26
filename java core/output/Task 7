@@ -1,1 +1,4 @@
-
+Original double: 9.75
+After casting to int: 9
+Original int: 7
+After casting to double: 7.0
