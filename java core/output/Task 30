@@ -1,1 +1,6 @@
+Object is an Integer: 42
+Object is a String: Hello
+Object is a Double: 3.14
+Unknown type: Boolean
+Object is null
 
