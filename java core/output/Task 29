@@ -1,1 +1,7 @@
+Person[name=Alice, age=30]
+Person[name=Bob, age=22]
+Person[name=Charlie, age=25]
+People older than 24:
+Person[name=Alice, age=30]
+Person[name=Charlie, age=25]
 
