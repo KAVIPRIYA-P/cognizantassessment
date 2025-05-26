@@ -1,1 +1,17 @@
+import java.util.ArrayList;
+
+public class ArrayListExample {
+    public static void main(String[] args) {
+        ArrayList<String> studentNames = new ArrayList<>();
+        studentNames.add("Alice");
+        studentNames.add("Bob");
+        studentNames.add("Charlie");
+        studentNames.add("Diana");
+
+        System.out.println("Student Names:");
+        for (String name : studentNames) {
+            System.out.println(name);
+        }
+    }
+}
 
