@@ -1,1 +1,21 @@
+public class PatternMatchingSwitchDemo {
+    public static void identifyObject(Object obj) {
+        String result = switch (obj) {
+            case Integer i -> "Object is an Integer: " + i;
+            case String s -> "Object is a String: " + s;
+            case Double d -> "Object is a Double: " + d;
+            case null -> "Object is null";
+            default -> "Unknown type: " + obj.getClass().getSimpleName();
+        };
+        System.out.println(result);
+    }
+
+    public static void main(String[] args) {
+        identifyObject(42);
+        identifyObject("Hello");
+        identifyObject(3.14);
+        identifyObject(true);
+        identifyObject(null);
+    }
+}
 
