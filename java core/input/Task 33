@@ -1,1 +1,61 @@
+import java.sql.Connection;
+import java.sql.DriverManager;
+import java.sql.PreparedStatement;
+import java.sql.SQLException;
+
+public class TransactionDemo {
+    private static final String URL = "jdbc:mysql://localhost:3306/bank";
+    private static final String USER = "root";
+    private static final String PASSWORD = "password";
+
+    private Connection getConnection() throws Exception {
+        Class.forName("com.mysql.cj.jdbc.Driver");
+        return DriverManager.getConnection(URL, USER, PASSWORD);
+    }
+
+    public void transferMoney(int fromAccountId, int toAccountId, double amount) {
+        String debitSQL = "UPDATE accounts SET balance = balance - ? WHERE id = ?";
+        String creditSQL = "UPDATE accounts SET balance = balance + ? WHERE id = ?";
+
+        try (Connection conn = getConnection();
+             PreparedStatement debitStmt = conn.prepareStatement(debitSQL);
+             PreparedStatement creditStmt = conn.prepareStatement(creditSQL)) {
+
+            conn.setAutoCommit(false);
+
+            
+            debitStmt.setDouble(1, amount);
+            debitStmt.setInt(2, fromAccountId);
+            int debitCount = debitStmt.executeUpdate();
+
+        
+            creditStmt.setDouble(1, amount);
+            creditStmt.setInt(2, toAccountId);
+            int creditCount = creditStmt.executeUpdate();
+
+            if (debitCount == 1 && creditCount == 1) {
+                conn.commit();
+                System.out.println("Transfer successful.");
+            } else {
+                conn.rollback();
+                System.out.println("Transfer failed. Transaction rolled back.");
+            }
+
+        } catch (SQLException e) {
+            e.printStackTrace();
+            try {
+                System.out.println("Rolling back transaction...");
+            } catch (Exception ex) {
+                ex.printStackTrace();
+            }
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+    }
+
+    public static void main(String[] args) {
+        TransactionDemo demo = new TransactionDemo();
+        demo.transferMoney(1, 2, 500.0);
+    }
+}
 
