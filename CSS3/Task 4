@@ -1,1 +1,13 @@
 
+body {
+  background-color: #f9f9f9;
+  color: rgba(0, 0, 0, 0.8);
+  background-image: url('background.jpg');
+  background-color: #cccccc; /* fallback */
+}
+section h2 {
+  background: linear-gradient(to right, #2193b0, #6dd5ed);
+  color: white;
+  padding: 10px;
+}
+
