@@ -1,1 +1,51 @@
+const container = document.querySelector("#events-container");
+const spinner = document.querySelector("#spinner");
+
+function displayEvents(events) {
+  container.innerHTML = "";
+  events.forEach(event => {
+    const card = document.createElement("div");
+    card.innerHTML = `
+      <h3>${event.name}</h3>
+      <p>Category: ${event.category}</p>
+      <p>Seats: ${event.seats}</p>
+    `;
+    card.style.border = "1px solid #ccc";
+    card.style.padding = "10px";
+    card.style.margin = "10px";
+    container.appendChild(card);
+  });
+}
+
+
+function fetchEventsThen() {
+  spinner.style.display = "block";
+  fetch("events.json") 
+    .then(response => response.json())
+    .then(data => {
+      spinner.style.display = "none";
+      displayEvents(data);
+    })
+    .catch(error => {
+      spinner.style.display = "none";
+      console.error("Error fetching events:", error);
+    });
+}
+
+async function fetchEventsAsync() {
+  spinner.style.display = "block";
+  try {
+    const response = await fetch("events.json"); // Or actual API
+    const data = await response.json();
+    displayEvents(data);
+  } catch (error) {
+    console.error("Fetch failed:", error);
+  } finally {
+    spinner.style.display = "none";
+  }
+}
+
+
+fetchEventsAsync();
+
 
