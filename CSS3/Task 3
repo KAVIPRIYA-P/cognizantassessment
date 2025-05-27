@@ -1,1 +1,23 @@
 
+* {
+  margin: 0;
+  padding: 0;
+}
+h2 {
+  color: navy;
+}
+
+#mainHeader {
+  text-align: center;
+}
+
+
+.eventCard {
+  box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
+}
+
+
+h3, p {
+  font-family: Arial, sans-serif;
+}
+
