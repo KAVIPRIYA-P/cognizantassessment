@@ -1,1 +1,43 @@
+import java.time.Duration;
+import java.time.Instant;
+
+public class VirtualVsTraditionalThreads {
+    static final int THREAD_COUNT = 100_000;
+
+    public static void main(String[] args) throws InterruptedException {
+        System.out.println("Launching with Virtual Threads...");
+        measure(() -> {
+            Thread[] threads = new Thread[THREAD_COUNT];
+            for (int i = 0; i < THREAD_COUNT; i++) {
+                threads[i] = Thread.startVirtualThread(() -> {
+                    System.out.println("Hello from virtual thread: " + Thread.currentThread());
+                });
+            }
+            for (Thread t : threads) {
+                t.join();
+            }
+        });
+
+        System.out.println("\nLaunching with Traditional Threads...");
+        measure(() -> {
+            Thread[] threads = new Thread[THREAD_COUNT];
+            for (int i = 0; i < THREAD_COUNT; i++) {
+                threads[i] = new Thread(() -> {
+                    System.out.println("Hello from platform thread: " + Thread.currentThread());
+                });
+                threads[i].start();
+            }
+            for (Thread t : threads) {
+                t.join();
+            }
+        });
+    }
+
+    static void measure(Runnable task) {
+        Instant start = Instant.now();
+        task.run();
+        Instant end = Instant.now();
+        System.out.println("Time taken: " + Duration.between(start, end).toMillis() + " ms");
+    }
+}
 
