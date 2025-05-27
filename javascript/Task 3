@@ -1,1 +1,38 @@
+const events = [
+  { name: "Tech Talk", date: "2025-06-20", seats: 5 },
+  { name: "Community Meetup", date: "2025-05-10", seats: 10 },
+  { name: "Workshop", date: "2025-07-05", seats: 0 }
+];
+
+function isUpcoming(dateStr) {
+  const today = new Date();
+  const eventDate = new Date(dateStr);
+  return eventDate >= today;
+}
+
+events.forEach(event => {
+  if (isUpcoming(event.date) && event.seats > 0) {
+    console.log(`Upcoming Event: ${event.name} on ${event.date} — Seats: ${event.seats}`);
+  } else {
+    console.log(`Skipping: ${event.name} (Past or Full)`);
+  }
+});
+
+function register(event) {
+  try {
+    if (!isUpcoming(event.date)) {
+      throw new Error("Cannot register for past events.");
+    }
+    if (event.seats <= 0) {
+      throw new Error("No seats available.");
+    }
+    event.seats--;
+    console.log(`Registered for ${event.name}. Remaining seats: ${event.seats}`);
+  } catch (error) {
+    console.error(`Registration failed for ${event.name}: ${error.message}`);
+  }
+}
+register(events[0]);
+register(events[1]);
+register(events[2]);
 
