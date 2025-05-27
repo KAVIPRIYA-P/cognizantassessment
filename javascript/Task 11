@@ -1,1 +1,90 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <title>Event Registration</title>
+  <style>
+    .error {
+      color: red;
+      font-size: 0.9em;
+    }
+  </style>
+</head>
+<body>
+  <h1>Register for an Event</h1>
+  <form id="registrationForm" novalidate>
+    <div>
+      <label for="name">Name:</label><br />
+      <input type="text" id="name" name="name" />
+      <div class="error" id="nameError"></div>
+    </div>
+
+    <div>
+      <label for="email">Email:</label><br />
+      <input type="email" id="email" name="email" />
+      <div class="error" id="emailError"></div>
+    </div>
+
+    <div>
+      <label for="event">Select Event:</label><br />
+      <select id="event" name="event">
+        <option value="">-- Select --</option>
+        <option value="Tech Talk">Tech Talk</option>
+        <option value="Music Fest">Music Fest</option>
+        <option value="Baking Workshop">Baking Workshop</option>
+      </select>
+      <div class="error" id="eventError"></div>
+    </div>
+
+    <button type="submit">Register</button>
+  </form>
+
+  <script src="main.js"></script>
+</body>
+</html>
+
+
+const form = document.getElementById("registrationForm");
+
+form.addEventListener("submit", function(event) {
+  event.preventDefault(); 
+
+
+  document.getElementById("nameError").textContent = "";
+  document.getElementById("emailError").textContent = "";
+  document.getElementById("eventError").textContent = "";
+
+  
+  const name = form.elements["name"].value.trim();
+  const email = form.elements["email"].value.trim();
+  const selectedEvent = form.elements["event"].value;
+
+  let valid = true;
+
+
+  if (name === "") {
+    document.getElementById("nameError").textContent = "Name is required.";
+    valid = false;
+  }
+
+  
+  if (email === "") {
+    document.getElementById("emailError").textContent = "Email is required.";
+    valid = false;
+  } else if (!/\S+@\S+\.\S+/.test(email)) {
+    document.getElementById("emailError").textContent = "Email is invalid.";
+    valid = false;
+  }
+
+
+  if (selectedEvent === "") {
+    document.getElementById("eventError").textContent = "Please select an event.";
+    valid = false;
+  }
+
+  if (valid) {
+    alert(`Thank you, ${name}! You are registered for ${selectedEvent}.`);
+    form.reset();
+  }
+});
 
