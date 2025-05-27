@@ -1,1 +1,55 @@
+const events = [];
+
+function addEvent(name, date, category, seats) {
+  events.push({ name, date, category, seats });
+}
+
+function createCategoryRegistrationTracker() {
+  const categoryCounts = {};
+
+  return function registerUser(eventName) {
+    const event = events.find(e => e.name === eventName);
+    if (!event) {
+      console.error("Event not found.");
+      return;
+    }
+
+    if (event.seats <= 0) {
+      console.warn(`No seats left for "${event.name}".`);
+      return;
+    }
+
+    event.seats--;
+
+    if (!categoryCounts[event.category]) {
+      categoryCounts[event.category] = 0;
+    }
+    categoryCounts[event.category]++;
+
+    console.log(`Registered for ${event.name}. Remaining seats: ${event.seats}`);
+  };
+}
+
+function filterEventsByCategory(category) {
+  return events.filter(event => event.category === category);
+}
+
+function filterEvents(callback) {
+  return events.filter(callback);
+}
+
+addEvent("Tech Talk", "2025-06-20", "Technology", 5);
+addEvent("Health Workshop", "2025-07-01", "Wellness", 10);
+addEvent("Yoga Day", "2025-06-21", "Wellness", 0);
+
+const register = createCategoryRegistrationTracker();
+register("Tech Talk");
+register("Health Workshop");
+
+console.log("Wellness Events:", filterEventsByCategory("Wellness"));
+
+const upcoming = filterEvents(event =>
+  new Date(event.date) > new Date() && event.seats > 0
+);
+console.log("Upcoming Events with Seats:", upcoming);
 
