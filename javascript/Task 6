@@ -1,1 +1,20 @@
+let communityEvents = [
+  { name: "Tech Talk", category: "Technology" },
+  { name: "Music Fest", category: "Music" },
+  { name: "Baking Basics", category: "Cooking" }
+];
+
+communityEvents.push({ name: "Guitar Jam", category: "Music" });
+communityEvents.push({ name: "Workshop on Painting", category: "Art" });
+
+
+const musicEvents = communityEvents.filter(event => event.category === "Music");
+console.log("Music Events:");
+console.log(musicEvents);
+
+const formattedCards = communityEvents.map(event =>
+  `Event: ${event.name} [${event.category}]`
+);
+console.log("Formatted Event Cards:");
+console.log(formattedCards);
 
