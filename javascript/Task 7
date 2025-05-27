@@ -1,1 +1,61 @@
+const events = [
+  { name: "Tech Talk", category: "Technology", seats: 5 },
+  { name: "Music Fest", category: "Music", seats: 2 },
+  { name: "Baking Workshop", category: "Cooking", seats: 0 }
+];
+
+
+const container = document.querySelector("#events-container");
+
+function renderEvents() {
+  container.innerHTML = ""; // Clear previous content
+
+  events.forEach((event, index) => {
+    const card = document.createElement("div");
+    card.style.border = "1px solid #ccc";
+    card.style.padding = "10px";
+    card.style.margin = "10px";
+
+    const title = document.createElement("h2");
+    title.textContent = event.name;
+
+    const category = document.createElement("p");
+    category.textContent = `Category: ${event.category}`;
+
+    const seats = document.createElement("p");
+    seats.textContent = `Available Seats: ${event.seats}`;
+
+    const registerBtn = document.createElement("button");
+    registerBtn.textContent = "Register";
+    registerBtn.disabled = event.seats === 0;
+
+    const cancelBtn = document.createElement("button");
+    cancelBtn.textContent = "Cancel";
+    cancelBtn.style.marginLeft = "10px";
+
+  
+    registerBtn.addEventListener("click", () => {
+      if (events[index].seats > 0) {
+        events[index].seats--;
+        renderEvents();
+      }
+    });
+
+    
+    cancelBtn.addEventListener("click", () => {
+      events[index].seats++;
+      renderEvents();
+    });
+
+    card.appendChild(title);
+    card.appendChild(category);
+    card.appendChild(seats);
+    card.appendChild(registerBtn);
+    card.appendChild(cancelBtn);
+    container.appendChild(card);
+  });
+}
+
+
+renderEvents();
 
