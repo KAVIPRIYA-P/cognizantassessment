@@ -1,1 +1,72 @@
+SERVER CODE
+
+import java.io.*;
+import java.net.*;
+
+public class ChatServer {
+    public static void main(String[] args) {
+        int port = 12345;
+        try (ServerSocket serverSocket = new ServerSocket(port)) {
+            System.out.println("Server started. Waiting for client...");
+
+            Socket clientSocket = serverSocket.accept();
+            System.out.println("Client connected.");
+
+            BufferedReader inFromClient = new BufferedReader(new InputStreamReader(clientSocket.getInputStream()));
+            PrintWriter outToClient = new PrintWriter(clientSocket.getOutputStream(), true);
+
+            BufferedReader userInput = new BufferedReader(new InputStreamReader(System.in));
+
+            String clientMessage, serverMessage;
+
+            while ((clientMessage = inFromClient.readLine()) != null) {
+                System.out.println("Client: " + clientMessage);
+                System.out.print("You: ");
+                serverMessage = userInput.readLine();
+                outToClient.println(serverMessage);
+            }
+
+            clientSocket.close();
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
+    }
+}
+
+CLIENT CODE
+
+import java.io.*;
+import java.net.*;
+
+public class ChatClient {
+    public static void main(String[] args) {
+        String hostname = "localhost";
+        int port = 12345;
+
+        try (Socket socket = new Socket(hostname, port)) {
+            System.out.println("Connected to server.");
+
+            BufferedReader inFromServer = new BufferedReader(new InputStreamReader(socket.getInputStream()));
+            PrintWriter outToServer = new PrintWriter(socket.getOutputStream(), true);
+
+            BufferedReader userInput = new BufferedReader(new InputStreamReader(System.in));
+
+            String serverMessage, clientMessage;
+
+            while (true) {
+                System.out.print("You: ");
+                clientMessage = userInput.readLine();
+                outToServer.println(clientMessage);
+
+                serverMessage = inFromServer.readLine();
+                if (serverMessage == null) break;
+                System.out.println("Server: " + serverMessage);
+            }
+
+            socket.close();
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
+    }
+}
 
