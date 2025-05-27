@@ -1,1 +1,49 @@
+Target class.java
+public class TargetClass {
+    public void greet(String name) {
+        System.out.println("Hello, " + name);
+    }
+
+    private int add(int a, int b) {
+        return a + b;
+    }
+}
+
+Reflector.java
+
+import java.lang.reflect.Method;
+import java.lang.reflect.Parameter;
+
+public class Reflector {
+    public static void main(String[] args) throws Exception {
+
+        Class<?> clazz = Class.forName("TargetClass");
+
+        
+        Method[] methods = clazz.getDeclaredMethods();
+        for (Method method : methods) {
+            System.out.println("Method: " + method.getName());
+
+            Parameter[] params = method.getParameters();
+            System.out.print("Parameters: ");
+            for (Parameter param : params) {
+                System.out.print(param.getType().getSimpleName() + " ");
+            }
+            System.out.println("\n---");
+        }
+
+      
+        Object obj = clazz.getDeclaredConstructor().newInstance();
+
+        
+        Method greetMethod = clazz.getMethod("greet", String.class);
+        greetMethod.invoke(obj, "Reflection!");
+
+        
+        Method addMethod = clazz.getDeclaredMethod("add", int.class, int.class);
+        addMethod.setAccessible(true);
+        int result = (int) addMethod.invoke(obj, 5, 7);
+        System.out.println("Result of add(5, 7): " + result);
+    }
+}
 
