@@ -1,1 +1,70 @@
+const events = [
+  { name: "Tech Talk", category: "Technology", seats: 5 },
+  { name: "Music Fest", category: "Music", seats: 2 },
+  { name: "Baking Workshop", category: "Cooking", seats: 0 }
+];
+
+const container = document.querySelector("#events-container");
+const categoryFilter = document.querySelector("#categoryFilter");
+const searchBox = document.querySelector("#searchBox");
+
+let currentCategory = "all";
+let searchKeyword = "";
+
+
+function renderEvents() {
+  container.innerHTML = "";
+
+  let filteredEvents = events
+    .filter(event => {
+      return (
+        (currentCategory === "all" || event.category === currentCategory) &&
+        event.name.toLowerCase().includes(searchKeyword.toLowerCase())
+      );
+    });
+
+  filteredEvents.forEach((event, index) => {
+    const card = document.createElement("div");
+    card.style.border = "1px solid #ccc";
+    card.style.padding = "10px";
+    card.style.margin = "10px";
+
+    card.innerHTML = `
+      <h2>${event.name}</h2>
+      <p>Category: ${event.category}</p>
+      <p>Seats: ${event.seats}</p>
+    `;
+
+    const registerBtn = document.createElement("button");
+    registerBtn.textContent = "Register";
+    registerBtn.disabled = event.seats === 0;
+
+    registerBtn.onclick = () => {
+      if (event.seats > 0) {
+        event.seats--;
+        renderEvents();
+      }
+    };
+
+    card.appendChild(registerBtn);
+    container.appendChild(card);
+  });
+}
+
+
+categoryFilter.onchange = (e) => {
+  currentCategory = e.target.value;
+  renderEvents();
+};
+
+
+searchBox.addEventListener("keydown", (e) => {
+  setTimeout(() => {
+    searchKeyword = e.target.value;
+    renderEvents();
+  }, 0);
+});
+
+
+renderEvents();
 
