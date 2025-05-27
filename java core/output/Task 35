@@ -1,1 +1,9 @@
+$ java ChatServer
+Server started. Waiting for client...
+Client connected.
+Client: Hi Server!
+You: Hello Client!
+Client: How are you?
+You: I'm good. How about you?
+Client: Doing well, thanks!
 
