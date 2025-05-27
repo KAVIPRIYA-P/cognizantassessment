@@ -1,1 +1,9 @@
+Method: greet
+Parameters: String 
+---
+Method: add
+Parameters: int int 
+---
+Hello, Reflection!
+Result of add(5, 7): 12
 
