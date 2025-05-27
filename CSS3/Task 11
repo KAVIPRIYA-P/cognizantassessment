@@ -1,1 +1,7 @@
+Open Chrome DevTools (F12 or right-click > Inspect).
 
+Use Device Toolbar (Ctrl+Shift+M) to test mobile views.
+
+Check Elements tab to live-edit styles.
+
+Use Network tab to ensure styles.css is loaded (status 200).
