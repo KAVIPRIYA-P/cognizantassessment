@@ -1,1 +1,33 @@
+form.addEventListener("submit", function(event) {
+  event.preventDefault();
+  console.log("Form submit triggered");
+
+  
+  const name = form.elements["name"].value.trim();
+  const email = form.elements["email"].value.trim();
+  const selectedEvent = form.elements["event"].value;
+
+  console.log("Captured inputs:", { name, email, selectedEvent });
+
+  
+  console.log("Sending data to server...");
+
+  fetch("https://jsonplaceholder.typicode.com/posts", {
+    method: "POST",
+    headers: { "Content-Type": "application/json" },
+    body: JSON.stringify({ name, email, event: selectedEvent })
+  })
+    .then(response => {
+      console.log("Response received:", response);
+      if (!response.ok) throw new Error("Network response was not ok");
+      return response.json();
+    })
+    .then(data => {
+      console.log("Parsed response data:", data);
+      alert("Registration successful!");
+    })
+    .catch(error => {
+      console.error("Fetch error:", error);
+    });
+});
 
