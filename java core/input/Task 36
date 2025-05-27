@@ -1,1 +1,40 @@
+import java.io.IOException;
+import java.net.URI;
+import java.net.http.HttpClient;
+import java.net.http.HttpRequest;
+import java.net.http.HttpResponse;
+
+import com.google.gson.JsonObject;
+import com.google.gson.JsonParser;
+
+public class HttpGetExample {
+    public static void main(String[] args) throws IOException, InterruptedException {
+        String username = "octocat"; 
+        String url = "https://api.github.com/users/" + username;
+
+        
+        HttpClient client = HttpClient.newHttpClient();
+
+    
+        HttpRequest request = HttpRequest.newBuilder()
+                .uri(URI.create(url))
+                .header("Accept", "application/vnd.github.v3+json")
+                .GET()
+                .build();
+
+      
+        HttpResponse<String> response = client.send(request, HttpResponse.BodyHandlers.ofString());
+
+      
+        System.out.println("Status Code: " + response.statusCode());
+        System.out.println("Raw JSON Body:\n" + response.body());
+
+      
+        JsonObject json = JsonParser.parseString(response.body()).getAsJsonObject();
+        System.out.println("\nParsed:");
+        System.out.println("Login: " + json.get("login").getAsString());
+        System.out.println("Name: " + json.get("name").getAsString());
+        System.out.println("Public Repos: " + json.get("public_repos").getAsInt());
+    }
+}
 
