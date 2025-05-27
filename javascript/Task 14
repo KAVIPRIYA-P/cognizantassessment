@@ -1,1 +1,9 @@
+$('#registerBtn').click(function() {
+  alert('Register button clicked!');
+});
 
+
+$('.event-card').fadeIn();
+$('.event-card').fadeOut();
+
+Frameworks like React and Vue let you build reusable UI components that manage their own state and lifecycle, making your app easier to develop, maintain, and scale compared to manual DOM manipulation with jQuery.
