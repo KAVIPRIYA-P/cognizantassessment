@@ -1,1 +1,22 @@
 
+#mainHeader {
+  color: #333;
+  font-size: 24px;
+}
+
+
+.eventCard {
+  background-color: white;
+  padding: 20px;
+  margin: 10px;
+  border-radius: 5px;
+}
+
+
+.cta-button {
+  background-color: #007BFF;
+  color: white;
+  padding: 10px 20px;
+  border: none;
+}
+
