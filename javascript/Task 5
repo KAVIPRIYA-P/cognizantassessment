@@ -1,1 +1,24 @@
+class Event {
+  constructor(name, date, category, seats) {
+    this.name = name;
+    this.date = date;
+    this.category = category;
+    this.seats = seats;
+  }
+
+  checkAvailability() {
+    return this.seats > 0;
+  }
+}
+
+const techTalk = new Event("Tech Talk", "2025-06-20", "Technology", 5);
+const yogaDay = new Event("Yoga Day", "2025-06-21", "Wellness", 0);
+
+console.log(`Is "${techTalk.name}" available?`, techTalk.checkAvailability());
+console.log(`Is "${yogaDay.name}" available?`, yogaDay.checkAvailability());
+
+console.log("Tech Talk Event Details:");
+Object.entries(techTalk).forEach(([key, value]) => {
+  console.log(`${key}: ${value}`);
+});
 
