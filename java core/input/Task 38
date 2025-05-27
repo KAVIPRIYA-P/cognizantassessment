@@ -1,1 +1,11 @@
+public class ReverseMe {
+    public String greet(String name) {
+        return "Hello, " + name + "!";
+    }
+
+    public static void main(String[] args) {
+        ReverseMe rm = new ReverseMe();
+        System.out.println(rm.greet("World"));
+    }
+}
 
