@@ -1,1 +1,11 @@
+public class HelloBytecode {
+    public int square(int x) {
+        return x * x;
+    }
+
+    public static void main(String[] args) {
+        HelloBytecode hb = new HelloBytecode();
+        System.out.println(hb.square(5));
+    }
+}
 
