@@ -1,1 +1,14 @@
+Status Code: 200
+Raw JSON Body:
+{
+  "login": "octocat",
+  "id": 583231,
+  "name": "The Octocat",
+  ...
+}
+
+Parsed:
+Login: octocat
+Name: The Octocat
+Public Repos: 8
 
