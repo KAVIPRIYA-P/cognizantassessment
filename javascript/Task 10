@@ -1,1 +1,19 @@
+const events = [
+  { name: "Tech Talk", category: "Technology", seats: 5 },
+  { name: "Music Fest", category: "Music", seats: 2 },
+  { name: "Baking Workshop", category: "Cooking", seats: 0 }
+];
+
+
+const getFilteredEvents = (eventList = [], category = "all") => {
+  const clonedList = [...eventList];
+  return category === "all"
+    ? clonedList
+    : clonedList.filter(({ category: cat }) => cat === category);
+};
+
+
+getFilteredEvents(events, "Music").forEach(({ name, seats }) => {
+  console.log(`${name} has ${seats} seats.`);
+});
 
